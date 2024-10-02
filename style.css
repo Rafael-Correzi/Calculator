@@ -1,0 +1,63 @@
+
+body {
+  background-color: rgb(111, 143, 175);
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  position: fixed;
+  width: 450px;
+  height: 600px;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  align-content: flex-end;
+  border: solid;
+  border-color: brown;
+  border-radius: 3%;
+  border-width: 8px;
+  background-color: brown;
+}
+
+button {
+  width: 25%;
+  height: 14%;
+  border: solid;
+  border-radius: 5%;
+  transition: 0ms;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+
+}
+
+.color-1 {
+  background-color: orange;
+}
+
+.operation {
+  background-color: yellow;
+}
+
+.number {
+  background-color: beige;
+}
+
+#display {
+  width: 96%;
+  height: 26%;
+  border: solid;
+  border-width: 14px 10px 12px 10px;  
+  border-color: black;
+  border-radius: 3%;
+  background-color: gray;
+}
+
+#zero {
+  width: 50%;
+}
+
+#equal {
+  background-color: darkgray;
+}
