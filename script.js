@@ -94,3 +94,12 @@ division.addEventListener("click", function(){
     operator = "*"
   }
 });
+
+equal.addEventListener("click", function(){
+  if (operator != null && operandA != null && operandB != null) {
+    operate(operandA, operandB, operator);
+    operator = null;
+    operandA = null;
+    operandB = null;
+  }
+} )
