@@ -48,10 +48,11 @@ button {
   width: 96%;
   height: 26%;
   border: solid;
-  border-width: 14px 10px 12px 10px;  
+  border-width: 20px 15px 20px 15px;  
   border-color: black;
   border-radius: 3%;
   background-color: gray;
+  margin-bottom: 12px;
 }
 
 #equal {
