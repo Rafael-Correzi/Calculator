@@ -38,3 +38,24 @@ function operate(operandA, operandB, operator){
   
   else return null;
 }
+
+const zero = document.querySelector("#");
+const one = document.querySelector("#one");
+const two = document.querySelector("#two");
+const three = document.querySelector("#three");
+const four  = document.querySelector("#four");
+const five = document.querySelector("#five");
+const six = document.querySelector("#six");
+const seven = document.querySelector("#seven");
+const eight = document.querySelector("#eight");
+const nine = document.querySelector("#nine");
+
+const  = document.querySelector("#sum");
+const  = document.querySelector("#subtraction");
+const  = document.querySelector("#multiplication");
+const  = document.querySelector("#division");
+const  = document.querySelector("#equal");
+const  = document.querySelector("#point");
+const  = document.querySelector("#backspace");
+const  = document.querySelector("#flips-sign");
+const  = document.querySelector("#clear");
