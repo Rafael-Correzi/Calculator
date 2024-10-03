@@ -22,7 +22,7 @@ body {
 
 button {
   width: 25%;
-  height: 14%;
+  height: 13%;
   border: solid;
   border-radius: 5%;
   transition: 0ms;
@@ -54,10 +54,16 @@ button {
   background-color: gray;
 }
 
+#equal {
+  background-color: darkgray;
+}
+
+#result {
+
+}
+
 #zero {
   width: 50%;
 }
 
-#equal {
-  background-color: darkgray;
-}
+
