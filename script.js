@@ -1,5 +1,5 @@
 function add(a, b) {
-  return a + b;
+  console.log(a + b);
 }
 
 function subtract(a, b) {
@@ -62,44 +62,46 @@ const clear = document.querySelector("#clear");
 
 for (const number of arrNumbers) {
   number.addEventListener("click", function(){
-    if (operator == null) {
-      operandA += arrNumbers.indexOf(number).toString;
+    if (operator == "") {
+      operandA += arrNumbers.indexOf(number).toString();
+      console.log(operandA);
     }
     else  {
-      operandB += arrNumbers.indexOf(number).toString;
+      operandB += arrNumbers.indexOf(number).toString();
     }
   });
 }
 
 addition.addEventListener("click", function(){
-  if (operator == null) {
+  if (operator == "") {
     operator = "+"
   }
 })
 
 subtraction.addEventListener("click", function(){
-  if (operator == null) {
+  if (operator == "") {
     operator = "-"
   }
 });
 
 multiplication.addEventListener("click", function(){
-  if (operator == null) {
+  if (operator == "") {
     operator = "*"
   }
 });
 
 division.addEventListener("click", function(){
-  if (operator == null) {
+  if (operator == "") {
     operator = "*"
   }
 });
 
 equal.addEventListener("click", function(){
   if (operator != null && operandA != null && operandB != null) {
-    operate(operandA, operandB, operator);
-    operator = null;
-    operandA = null;
-    operandB = null;
+    operate(+operandA, +operandB, operator);
+    console.log(+operandA);
+    operator = "";
+    operandA = "";
+    operandB = "";
   }
 } )
