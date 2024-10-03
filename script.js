@@ -60,6 +60,8 @@ const backspace = document.querySelector("#backspace");
 const flipSign  = document.querySelector("#flips-sign");
 const clear = document.querySelector("#clear");
 
+const display = document.querySelector("#result");
+
 for (const number of arrNumbers) {
   number.addEventListener("click", function(){
     if (operator == "") {
@@ -104,3 +106,4 @@ equal.addEventListener("click", function(){
     operandB = "";
   }
 } )
+
