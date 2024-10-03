@@ -39,7 +39,7 @@ function operate(operandA, operandB, operator){
   else return null;
 }
 const arrNumbers = [];
-arrNumbers[0] = document.querySelector("#");
+arrNumbers[0] = document.querySelector("#zero");
 arrNumbers[1] = document.querySelector("#one");
 arrNumbers[2] = document.querySelector("#two");
 arrNumbers[3] = document.querySelector("#three");
@@ -50,7 +50,7 @@ arrNumbers[7] = document.querySelector("#seven");
 arrNumbers[8] = document.querySelector("#eight");
 arrNumbers[9] = document.querySelector("#nine");
 
-const sum = document.querySelector("#sum");
+const addition = document.querySelector("#addition");
 const subtraction = document.querySelector("#subtraction");
 const multiplication = document.querySelector("#multiplication");
 const division = document.querySelector("#division");
@@ -59,3 +59,38 @@ const point = document.querySelector("#point");
 const backspace = document.querySelector("#backspace");
 const flipSign  = document.querySelector("#flips-sign");
 const clear = document.querySelector("#clear");
+
+for (const number of arrNumbers) {
+  number.addEventListener("click", function(){
+    if (operator == null) {
+      operandA += arrNumbers.indexOf(number).toString;
+    }
+    else  {
+      operandB += arrNumbers.indexOf(number).toString;
+    }
+  });
+}
+
+addition.addEventListener("click", function(){
+  if (operator == null) {
+    operator = "+"
+  }
+})
+
+subtraction.addEventListener("click", function(){
+  if (operator == null) {
+    operator = "-"
+  }
+});
+
+multiplication.addEventListener("click", function(){
+  if (operator == null) {
+    operator = "*"
+  }
+});
+
+division.addEventListener("click", function(){
+  if (operator == null) {
+    operator = "*"
+  }
+});
