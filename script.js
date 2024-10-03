@@ -14,11 +14,11 @@ function divide(a, b){
   return a / b;
 }
 
-let operandA;
+let operandA = "";
 
-let operandB;
+let operandB= "";
 
-let operator;
+let operator= "";
 
 function operate(operandA, operandB, operator){
   if (operator === "+") {
@@ -38,17 +38,17 @@ function operate(operandA, operandB, operator){
   
   else return null;
 }
-
-const zero = document.querySelector("#");
-const one = document.querySelector("#one");
-const two = document.querySelector("#two");
-const three = document.querySelector("#three");
-const four  = document.querySelector("#four");
-const five = document.querySelector("#five");
-const six = document.querySelector("#six");
-const seven = document.querySelector("#seven");
-const eight = document.querySelector("#eight");
-const nine = document.querySelector("#nine");
+const arrNumbers = [];
+arrNumbers[0] = document.querySelector("#");
+arrNumbers[1] = document.querySelector("#one");
+arrNumbers[2] = document.querySelector("#two");
+arrNumbers[3] = document.querySelector("#three");
+arrNumbers[4] = document.querySelector("#four");
+arrNumbers[5] = document.querySelector("#five");
+arrNumbers[6] = document.querySelector("#six");
+arrNumbers[7] = document.querySelector("#seven");
+arrNumbers[8] = document.querySelector("#eight");
+arrNumbers[9] = document.querySelector("#nine");
 
 const sum = document.querySelector("#sum");
 const subtraction = document.querySelector("#subtraction");
