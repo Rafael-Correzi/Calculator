@@ -3,15 +3,15 @@ function add(a, b) {
 }
 
 function subtract(a, b) {
-  return a - b;
+  console.log(a - b);
 }
 
 function multiply(a, b) {
-  return a * b;
+  console.log(a * b);
 }
 
 function divide(a, b){
-  return a / b;
+  console.log(a / b);
 }
 
 let operandA = "";
@@ -92,14 +92,13 @@ multiplication.addEventListener("click", function(){
 
 division.addEventListener("click", function(){
   if (operator == "") {
-    operator = "*"
+    operator = "/"
   }
 });
 
 equal.addEventListener("click", function(){
   if (operator != null && operandA != null && operandB != null) {
     operate(+operandA, +operandB, operator);
-    console.log(+operandA);
     operator = "";
     operandA = "";
     operandB = "";
