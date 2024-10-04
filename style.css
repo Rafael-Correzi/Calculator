@@ -46,18 +46,26 @@ button {
 }
 
 #display {
+  display: flex;
   width: 96%;
   height: 26%;
+  background-color: gray;
   border: solid;
   border-width: 20px 15px 20px 15px;  
   border-color: black;
   border-radius: 3%;
-  background-color: gray;
   margin-bottom: 12px;
+  justify-content: end;
+
 }
 
 #equal {
   background-color: darkgray;
+}
+
+#result {
+  font-size: 50px;
+  align-self: center;
 }
 
 #zero {

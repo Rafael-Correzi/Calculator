@@ -1,17 +1,33 @@
 function add(a, b) {
-  console.log(a + b);
+  let sum = a + b;
+  display.textContent = sum;
+  if (operator != "") {
+    operandA = sum;
+  }
 }
 
 function subtract(a, b) {
-  console.log(a - b);
+  let difference = a - b;
+  display.textContent = difference;
+  if (operator != "") {
+    operandA = difference;
+  }
 }
 
 function multiply(a, b) {
-  console.log(a * b);
+  let product = a * b;
+  display.textContent = product;
+  if (operator != "") {
+    operandA = product;
+  }
 }
 
 function divide(a, b){
-  console.log(a / b);
+  let quotient = a / b;
+  display.textContent = quotient;
+  if (operator != "") {
+    operandA = quotient;
+  }
 }
 
 let operandA = "";
@@ -62,14 +78,25 @@ const clear = document.querySelector("#clear");
 
 const display = document.querySelector("#result");
 
+
+
 for (const number of arrNumbers) {
   number.addEventListener("click", function(){
+    let displayedNumber = arrNumbers.indexOf(number).toString();
+    if (display.textContent != "" && operandA == "") {
+      display.textContent = "";
+    }
     if (operator == "") {
-      operandA += arrNumbers.indexOf(number).toString();
-      console.log(operandA);
+      operandA += displayedNumber;
+      display.append(displayedNumber);
+      
     }
     else  {
-      operandB += arrNumbers.indexOf(number).toString();
+      if (operandB == "") {
+        display.textContent = "";
+      }
+      operandB += displayedNumber;
+      display.append(displayedNumber);
     }
   });
 }
@@ -77,29 +104,58 @@ for (const number of arrNumbers) {
 addition.addEventListener("click", function(){
   if (operator == "") {
     operator = "+"
+    display.textContent= "+";
+  }
+  else if (operator != "" && operandA != "" && operandB != "") {
+    display.textContent= "";
+    operate(+operandA, +operandB, operator);
+    operator = "+";
+    operandB = "";
   }
 })
 
 subtraction.addEventListener("click", function(){
   if (operator == "") {
     operator = "-"
+    display.textContent= "-";
+  }
+  else if (operator != "" && operandA != "" && operandB != "") {
+    display.textContent= "";
+    operate(+operandA, +operandB, operator);
+    operator = "-";
+    operandB = "";
   }
 });
 
 multiplication.addEventListener("click", function(){
   if (operator == "") {
     operator = "*"
+    display.textContent= "×";
+  }
+  else if (operator != "" && operandA != "" && operandB != "") {
+    display.textContent= "";
+    operate(+operandA, +operandB, operator);
+    operator = "*";
+    operandB = "";
   }
 });
 
 division.addEventListener("click", function(){
   if (operator == "") {
     operator = "/"
+    display.textContent= "÷";
+  }
+  else if (operator != "" && operandA != "" && operandB != "") {
+    display.textContent= "";
+    operate(+operandA, +operandB, operator);
+    operator = "/";
+    operandB = "";
   }
 });
 
 equal.addEventListener("click", function(){
   if (operator != null && operandA != null && operandB != null) {
+    display.textContent= "";
     operate(+operandA, +operandB, operator);
     operator = "";
     operandA = "";
