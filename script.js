@@ -73,7 +73,7 @@ const division = document.querySelector("#division");
 const equal = document.querySelector("#equal");
 const point = document.querySelector("#point");
 const backspace = document.querySelector("#backspace");
-const flipSign  = document.querySelector("#flips-sign");
+const flipSign  = document.querySelector("#flip-sign");
 const clear = document.querySelector("#clear");
 
 const display = document.querySelector("#result");
@@ -104,7 +104,7 @@ for (const number of arrNumbers) {
 addition.addEventListener("click", function(){
   if (operator == "") {
     operator = "+"
-    display.textContent= "+";
+    display.textContent= "";
   }
   else if (operator != "" && operandA != "" && operandB != "") {
     display.textContent= "";
@@ -117,7 +117,7 @@ addition.addEventListener("click", function(){
 subtraction.addEventListener("click", function(){
   if (operator == "") {
     operator = "-"
-    display.textContent= "-";
+    display.textContent= "";
   }
   else if (operator != "" && operandA != "" && operandB != "") {
     display.textContent= "";
@@ -130,7 +130,7 @@ subtraction.addEventListener("click", function(){
 multiplication.addEventListener("click", function(){
   if (operator == "") {
     operator = "*"
-    display.textContent= "×";
+    display.textContent= "";
   }
   else if (operator != "" && operandA != "" && operandB != "") {
     display.textContent= "";
@@ -143,7 +143,7 @@ multiplication.addEventListener("click", function(){
 division.addEventListener("click", function(){
   if (operator == "") {
     operator = "/"
-    display.textContent= "÷";
+    display.textContent= "";
   }
   else if (operator != "" && operandA != "" && operandB != "") {
     display.textContent= "";
@@ -154,11 +154,10 @@ division.addEventListener("click", function(){
 });
 
 equal.addEventListener("click", function(){
-  if (operator != null && operandA != null && operandB != null) {
+  if (operator != "" && operandA != "" && operandB != "null") {
     display.textContent= "";
     operate(+operandA, +operandB, operator);
     operator = "";
-    operandA = "";
     operandB = "";
   }
 } )
