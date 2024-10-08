@@ -167,9 +167,21 @@ flipSign.addEventListener("click", function() {
     operandA *= -1;
     display.textContent = operandA;
   }
-  else if (operandB != "" && operandA == "") {
+  else if (operandB != "") {
     operandB *= -1;
     display.textContent = operandB;
+  }
+
+})
+
+point.addEventListener("click", function(){
+  if (operandA != "" && operandB == "" && !operandA.includes(".")) {
+    operandA += "";
+    display.append(".");
+  }
+  else if (operandB != "" && operandA == "" && !operandB.includes(".")) {
+    operandB += "";
+    display.append(".");
   }
 
 })
