@@ -2,7 +2,9 @@ function add(a, b) {
   let sum = a + b;
   display.textContent = sum;
   if (operator != "") {
-    operandA = sum;
+    operandA = sum.toString();
+    operandB = "";
+    console.log(operandA + " " + operandB + " " + operandA.includes("."));
   }
 }
 
@@ -10,7 +12,8 @@ function subtract(a, b) {
   let difference = a - b;
   display.textContent = difference;
   if (operator != "") {
-    operandA = difference;
+    operandA = difference.toString();
+    operandB = "";
   }
 }
 
@@ -18,7 +21,8 @@ function multiply(a, b) {
   let product = a * b;
   display.textContent = product;
   if (operator != "") {
-    operandA = product;
+    operandA = product.toString();
+    operandB = "";
   }
 }
 
@@ -26,7 +30,8 @@ function divide(a, b){
   let quotient = a / b;
   display.textContent = quotient;
   if (operator != "") {
-    operandA = quotient;
+    operandA = quotient.toString();
+    operandB = "";
   }
 }
 
@@ -51,8 +56,6 @@ function operate(operandA, operandB, operator){
   else if (operator === "/") {
    divide(operandA, operandB);
   }
-  
-  else return null;
 }
 const arrNumbers = [];
 arrNumbers[0] = document.querySelector("#zero");
@@ -110,7 +113,6 @@ addition.addEventListener("click", function(){
     display.textContent= "";
     operate(+operandA, +operandB, operator);
     operator = "+";
-    operandB = "";
   }
 })
 
@@ -123,7 +125,6 @@ subtraction.addEventListener("click", function(){
     display.textContent= "";
     operate(+operandA, +operandB, operator);
     operator = "-";
-    operandB = "";
   }
 });
 
@@ -136,7 +137,6 @@ multiplication.addEventListener("click", function(){
     display.textContent= "";
     operate(+operandA, +operandB, operator);
     operator = "*";
-    operandB = "";
   }
 });
 
@@ -149,7 +149,6 @@ division.addEventListener("click", function(){
     display.textContent= "";
     operate(+operandA, +operandB, operator);
     operator = "/";
-    operandB = "";
   }
 });
 
@@ -158,7 +157,6 @@ equal.addEventListener("click", function(){
     display.textContent= "";
     operate(+operandA, +operandB, operator);
     operator = "";
-    operandB = "";
   }
 } )
 
@@ -176,11 +174,11 @@ flipSign.addEventListener("click", function() {
 
 point.addEventListener("click", function(){
   if (operandA != "" && operandB == "" && !operandA.includes(".")) {
-    operandA += "";
+    operandA += ".";
     display.append(".");
   }
-  else if (operandB != "" && operandA == "" && !operandB.includes(".")) {
-    operandB += "";
+  else if (operandB != "" && !operandB.includes(".")) {
+    operandB += ".";
     display.append(".");
   }
 
