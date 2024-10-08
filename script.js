@@ -162,3 +162,14 @@ equal.addEventListener("click", function(){
   }
 } )
 
+flipSign.addEventListener("click", function() {
+  if (operandA != "" && operandB == "") {
+    operandA *= -1;
+    display.textContent = operandA;
+  }
+  else if (operandB != "" && operandA == "") {
+    operandB *= -1;
+    display.textContent = operandB;
+  }
+
+})
