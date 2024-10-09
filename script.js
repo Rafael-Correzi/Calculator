@@ -193,11 +193,11 @@ clear.addEventListener("click", function(){
 
 backspace.addEventListener("click", function(){
   if (operator == "") {
-    operandA = operandA.slice(0, -1);
+    operandA = operandA.toString().slice(0, -1);
     display.textContent = operandA;
   }
   if (operator != "") {
-    operandB = operandB.slice(0, -1);
+    operandB = operandB.toString().slice(0, -1);
     display.textContent = operandB;
   }
 })
