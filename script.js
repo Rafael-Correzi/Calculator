@@ -3,7 +3,6 @@ function add(a, b) {
   display.textContent = sum;
   if (operator != "") {
     operandA = sum;
-    console.log(operandA + " " + operandB + " " + operandA.includes("."));
   }
 }
 
@@ -183,4 +182,11 @@ point.addEventListener("click", function(){
     display.append(".");
   }
 
+})
+
+clear.addEventListener("click", function(){
+  operandA = "";
+  operandB = "";
+  operator = "";
+  display.textContent = "";
 })
