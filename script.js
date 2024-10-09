@@ -190,3 +190,14 @@ clear.addEventListener("click", function(){
   operator = "";
   display.textContent = "";
 })
+
+backspace.addEventListener("click", function(){
+  if (operator == "") {
+    operandA = operandA.slice(0, -1);
+    display.textContent = operandA;
+  }
+  if (operator != "") {
+    operandB = operandB.slice(0, -1);
+    display.textContent = operandB;
+  }
+})
