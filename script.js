@@ -52,6 +52,16 @@ function operate(operandA, operandB, operator){
    divide(operandA, operandB);
   }
 }
+
+
+function lengthParser(value, appendedVal){
+  if (value.length < 13) {
+    value += appendedVal;
+  }
+  return value;
+}
+
+
 const arrNumbers = [];
 arrNumbers[0] = document.querySelector("#zero");
 arrNumbers[1] = document.querySelector("#one");
@@ -85,16 +95,16 @@ for (const number of arrNumbers) {
       display.textContent = "";
     }
     if (operator == "") {
-      operandA += displayedNumber;
-      display.append(displayedNumber);
+      operandA = lengthParser(operandA, displayedNumber);
+      display.textContent = operandA;
       
     }
     else  {
       if (operandB == "") {
         display.textContent = "";
       }
-      operandB += displayedNumber;
-      display.append(displayedNumber);
+      operandB = lengthParser(operandB, displayedNumber);
+      display.textContent = operandB;
     }
   });
 }
@@ -174,12 +184,12 @@ flipSign.addEventListener("click", function() {
 
 point.addEventListener("click", function(){
   if (operandA != "" && operandB == "" && !operandA.toString().includes(".")) {
-    operandA += ".";
-    display.append(".");
+    operandA = lengthParser(operandA, ".");
+    display.textContent = operandA;
   }
   else if (operandB != "" && !operandB.toString().includes(".")) {
-    operandB += ".";
-    display.append(".");
+    operandB = lengthParser(operandA, ".");
+    display.textContent = operandB;
   }
 
 })
