@@ -59,28 +59,24 @@ function myExponential(num) {
   let scientificNotation;
   let coefficient;
   let exponent;
-  let numLength;
   let approximately = "";
   if (!num.toString().includes("e")) {
-    numLength = num.toString().length - 1;
-    coefficient = parseFloat((num / Math.pow(10, numLength)).toFixed(6));
+    exponent = num.toString().length - 1;
+    coefficient = parseFloat((num / Math.pow(10, exponent)).toFixed(6));
   }
   else { 
-    numLength = num.toString().split("+")[1];
+    exponent = num.toString().split("+")[1];
     coefficient = parseFloat(num.toString().split("e")[0].slice(0, 8));
     }
   while (coefficient < 1 ) {
     //at this point I figured out I can just multiply and divide my toExponential(x) by the same number to get rid of zeroes, so most of the things here are unnecessary :(
     //I will use my function anyway
     coefficient = parseFloat(coefficient*10).toFixed(6)*10/10;
-    numLength -= 1;
+    exponent -= 1;
   }
-  if (coefficient * Math.pow(10, numLength) !== num) {
+  if (coefficient * Math.pow(10, exponent) !== num) {
     approximately = "≈"
   }
-  console.log(numLength);
-  console.log(coefficient);
-  exponent = numLength;
   scientificNotation = `${approximately}${coefficient}e+${exponent}`;
   return scientificNotation;
 }
