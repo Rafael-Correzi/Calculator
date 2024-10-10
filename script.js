@@ -55,7 +55,11 @@ function operate(operandA, operandB, operator){
 
 
 function lengthParser(value, appendedVal){
-  if (value.toString().length < 13) {
+  let lengthMax = 13;
+  if (appendedVal === ".") {
+    lengthMax = 12;
+  }
+  if (value.toString().length < lengthMax) {
     value += appendedVal;
   }
   return value;
@@ -188,7 +192,7 @@ point.addEventListener("click", function(){
     display.textContent = operandA;
   }
   else if (operandB != "" && !operandB.toString().includes(".")) {
-    operandB = lengthParser(operandA, ".");
+    operandB = lengthParser(operandB, ".");
     display.textContent = operandB;
   }
 
