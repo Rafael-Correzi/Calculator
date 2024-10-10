@@ -40,10 +40,7 @@ function multiply(a, b) {
 
 function divide(a, b){
   let quotient = a / b;
-  if (quotient === Infinity) {
-    display.textContent = "WHAT HAVE Y-"
-  }
-  else if (quotient.toString().length < 14) {
+  if (quotient.toString().length < 14) {
     display.textContent = quotient;
     }
   else {
