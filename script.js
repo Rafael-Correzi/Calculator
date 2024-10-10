@@ -1,5 +1,5 @@
 function add(a, b) {
-  let sum = a + b;
+  let sum = outputParser(a + b);
   display.textContent = sum;
   if (operator != "") {
     operandA = sum;
@@ -7,7 +7,7 @@ function add(a, b) {
 }
 
 function subtract(a, b) {
-  let difference = a - b;
+  let difference = outputParser(a - b);
   display.textContent = difference;
   if (operator != "") {
     operandA = difference;
@@ -15,7 +15,7 @@ function subtract(a, b) {
 }
 
 function multiply(a, b) {
-  let product = a * b;
+  let product = outputParser(a * b);
   display.textContent = product;
   if (operator != "") {
     operandA = product;
@@ -23,7 +23,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b){
-  let quotient = a / b;
+  let quotient = outputParser(a / b);
   display.textContent = quotient;
   if (operator != "") {
     operandA = quotient;
@@ -63,6 +63,29 @@ function lengthParser(value, appendedVal){
     value += appendedVal;
   }
   return value;
+}
+
+function outputParser(value) {
+  let beforePoint;
+  let afterPoint;
+  //
+  beforePoint = value.toString().split(".")[0];
+  afterPoint = value.toString().split(".")[1];
+  if (value.toString().includes("e")){
+    return exponentiator(value);
+  }
+  if (afterPoint === undefined && beforePoint.length < 14) {
+    return value; 
+  }
+  if (beforePoint.length >= 14) {
+    return exponentiator(value);
+  }
+  if (beforePoint.length + afterPoint.length < 13){
+    return value;
+  }
+  if (beforePoint.length + afterPoint.length >= 13) {
+    return value.toFixed(12-beforePoint.length);
+  }
 }
 
 
