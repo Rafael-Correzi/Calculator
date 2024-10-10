@@ -55,7 +55,7 @@ function operate(operandA, operandB, operator){
 
 
 function lengthParser(value, appendedVal){
-  if (value.length < 13) {
+  if (value.toString().length < 13) {
     value += appendedVal;
   }
   return value;
