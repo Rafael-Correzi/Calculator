@@ -1,12 +1,6 @@
 function add(a, b) {
   let sum = a + b;
-  if (sum.toString().length < 14) {
   display.textContent = sum;
-  }
-  else {
-  display.textContent = myExponential(sum);
-
-  }
   if (operator != "") {
     operandA = sum;
   }
@@ -14,12 +8,7 @@ function add(a, b) {
 
 function subtract(a, b) {
   let difference = a - b;
-  if (difference.toString().length < 14) {
-    display.textContent = difference;
-    }
-  else {
-    display.textContent = myExponential(difference);
-  }
+  display.textContent = difference;
   if (operator != "") {
     operandA = difference;
   }
@@ -27,12 +16,7 @@ function subtract(a, b) {
 
 function multiply(a, b) {
   let product = a * b;
-  if (product.toString().length < 14) {
-    display.textContent = product;
-    }
-  else {
-    display.textContent = myExponential(product);
-  }
+  display.textContent = product;
   if (operator != "") {
     operandA = product;
   }
@@ -40,47 +24,12 @@ function multiply(a, b) {
 
 function divide(a, b){
   let quotient = a / b;
-  if (quotient.toString().length < 14) {
-    display.textContent = quotient;
-    }
-  else {
-    display.textContent = myExponential(quotient);
-  }
+  display.textContent = quotient;
   if (operator != "") {
     operandA = quotient;
   }
 }
 
-function myExponential(num) {
-  //because I can't figure out how to avoid useless decimal zeroes using toExponential(x)
-  let scientificNotation;
-  let coefficient;
-  let exponent;
-  let numLength;
-  let approximately = "";
-  if (!num.toString().includes("e")) {
-    numLength = num.toString().length - 1;
-    coefficient = parseFloat((num / Math.pow(10, numLength)).toFixed(6));
-  }
-  else { 
-    numLength = num.toString().split("+")[1];
-    coefficient = parseFloat(num.toString().split("e")[0].slice(0, 8));
-    }
-  while (coefficient < 1 ) {
-    //at this point I figured out I can just multiply and divide my toExponential(x) by the same number to get rid of zeroes, so most of the things here are unnecessary :(
-    //I will use my function anyway
-    coefficient = parseFloat(coefficient*10).toFixed(6)*10/10;
-    numLength -= 1;
-  }
-  if (coefficient * Math.pow(10, numLength) !== num) {
-    approximately = "≈"
-  }
-  console.log(numLength);
-  console.log(coefficient);
-  exponent = numLength;
-  scientificNotation = `${approximately}${coefficient}e+${exponent}`;
-  return scientificNotation;
-}
 let operandA = "";
 
 let operandB= "";
@@ -132,29 +81,22 @@ const display = document.querySelector("#result");
 for (const number of arrNumbers) {
   number.addEventListener("click", function(){
     let displayedNumber = arrNumbers.indexOf(number).toString();
-    if (display.textContent != "" && operandA == "") {
+    if (display.textContent != "" && operandA === "") {
       display.textContent = "";
     }
-    if (operator == "" && operandA.length < 13) {
+    if (operator == "") {
       operandA += displayedNumber;
       display.append(displayedNumber);
       
     }
-  });
-}
-
-for (const number of arrNumbers) {
-  number.addEventListener("click", function(){
-    let displayedNumber = arrNumbers.indexOf(number).toString();
-    if (operator != "" && operandB == "") {
+    else  {
+      if (operandB == "") {
         display.textContent = "";
-    }
-    if (operator != "" && operandB.length < 13) {
+      }
       operandB += displayedNumber;
       display.append(displayedNumber);
-      }
     }
-  )
+  });
 }
 
 addition.addEventListener("click", function(){
