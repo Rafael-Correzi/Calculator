@@ -171,35 +171,16 @@ flipSign.addEventListener("click", function() {
 
 })
 
-point.addEventListener("click", function(){
-  if (operandA != "" && operandB == "" && !operandA.toString().includes(".")) {
-    operandA = lengthParser(operandA, ".");
-    display.textContent = operandA;
-  }
-  else if (operandB != "" && !operandB.toString().includes(".")) {
-    operandB = lengthParser(operandB, ".");
-    display.textContent = operandB;
-  }
-
-})
+point.addEventListener("click", setPoint);
 
 clear.addEventListener("click", function(){
   operandA = "";
   operandB = "";
   operator = "";
   display.textContent = "";
-})
+});
 
-backspace.addEventListener("click", function(){
-  if (operator == "") {
-    operandA = operandA.toString().slice(0, -1);
-    display.textContent = operandA;
-  }
-  if (operator != "" && operandB != "" ) {
-    operandB = operandB.toString().slice(0, -1);
-    display.textContent = operandB;
-  }
-})
+backspace.addEventListener("click", eraseLast);
 
 window.addEventListener("keydown", (e) => {
   findInputSource("keyboard", e.key);
@@ -214,6 +195,17 @@ function findInputSource(source, char){
     appendedVal = char;  
   }
   displayNumber(appendedVal);
+}
+
+function eraseLast(){
+  if (operator == "") {
+    operandA = operandA.toString().slice(0, -1);
+    display.textContent = operandA;
+  }
+  if (operator != "" && operandB != "" ) {
+    operandB = operandB.toString().slice(0, -1);
+    display.textContent = operandB;
+  }
 }
 
 function displayNumber(appendedVal){
@@ -245,6 +237,14 @@ function getLastKey(char){
     //negative sign
     return char;
   }
+  if (char === "Backspace") {
+    eraseLast();
+    return null;
+  }
+  if ((char === "." || char === ",") && !display.textContent.includes(".")) {
+    setPoint()
+    return null
+  }
   if (char === "+" || char === "-" || char === "*" || char === "/"){
     setOperation(char);
     return null;
@@ -266,3 +266,15 @@ function setOperation(newOp){
   }
   
 }
+
+function setPoint(){
+  if (operandA != "" && operandB == "" && !operandA.toString().includes(".")) {
+    operandA = lengthParser(operandA, ".");
+    display.textContent = operandA;
+  }
+  else if (operandB != "" && !operandB.toString().includes(".")) {
+    operandB = lengthParser(operandB, ".");
+    display.textContent = operandB;
+  }
+}
+//todo backspace
