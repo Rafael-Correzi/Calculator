@@ -32,9 +32,9 @@ function divide(a, b){
 
 let operandA = "";
 
-let operandB= "";
+let operandB = "";
 
-let operator= "";
+let operator = "";
 
 function operate(operandA, operandB, operator){
   if (operator === "+") {
@@ -149,66 +149,15 @@ for (const number of arrNumbers){
     findInputSource("screen", arrNumbers.indexOf(number).toString()))
 }
 
-addition.addEventListener("click", function(){
-  if (operator == "") {
-    operator = "+"
-    display.textContent = "";
-  }
-  else if (operator != "" && operandA != "" && operandB != "") {
-    display.textContent= "";
-    operate(+operandA, +operandB, operator);
-    operator = "+";
-    operandB = "";
-  }
-})
+addition.addEventListener("click", () => setOperation("+"));
 
-subtraction.addEventListener("click", function(){
-  if (operator == "") {
-    operator = "-"
-    display.textContent= "";
-  }
-  else if (operator != "" && operandA != "" && operandB != "") {
-    display.textContent = "";
-    operate(+operandA, +operandB, operator);
-    operator = "-";
-    operandB = "";
-  }
-});
+subtraction.addEventListener("click", () => setOperation("-"));
 
-multiplication.addEventListener("click", function(){
-  if (operator == "") {
-    operator = "*"
-    display.textContent = "";
-  }
-  else if (operator != "" && operandA != "" && operandB != "") {
-    display.textContent= "";
-    operate(+operandA, +operandB, operator);
-    operator = "*";
-    operandB = "";
-  }
-});
+multiplication.addEventListener("click", () => setOperation("*"));
 
-division.addEventListener("click", function(){
-  if (operator == "") {
-    operator = "/"
-    display.textContent= "";
-  }
-  else if (operator != "" && operandA != "" && operandB != "") {
-    display.textContent = "";
-    operate(+operandA, +operandB, operator);
-    operator = "/";
-    operandB = "";
-  }
-});
+division.addEventListener("click", () => setOperation("/"));
 
-equal.addEventListener("click", function(){
-  if (operator != "" && operandA != "" && operandB != "") {
-    display.textContent = "";
-    operate(+operandA, +operandB, operator);
-    operator = "";
-    operandB = "";
-  }
-} )
+equal.addEventListener("click", () => setOperation(""));
 
 flipSign.addEventListener("click", function() {
   if (operandA != "" && operandB == "") {
@@ -289,12 +238,31 @@ function getLastKey(char){
   let valueLength = display.textContent.length;
   let charCode = char.charCodeAt(0)
   if (charCode >= 48 && charCode <=57) {
+    //0~9
     return char;
   }
-  else if (charCode === 45 && valueLength === 0) {
+  if (charCode === 45 && valueLength === 0) {
+    //negative sign
     return char;
+  }
+  if (char === "+" || char === "-" || char === "*" || char === "/"){
+    setOperation(char);
+    return null;
   }
   else {
     return null;
   }
+}
+
+function setOperation(newOp){
+  if (operator == "") {
+    operator = newOp;
+    display.textContent = "";
+  }
+  if (operator != "" && operandA != "" && operandB != "") {
+    operate(+operandA, +operandB, operator);
+    operator = newOp;
+    operandB = "";
+  }
+  
 }
