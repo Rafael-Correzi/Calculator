@@ -70,6 +70,9 @@ function outputParser(value) {
   let afterPoint;
   beforePoint = value.toString().split(".")[0];
   afterPoint = value.toString().split(".")[1];
+  if (value == Infinity || value == -Infinity) {
+    return "WHAT HAVE Y-"
+  }
   if (value.toString().includes("e") && value.toString().includes(".")){
     return exponentiator(value, 1);
   }
