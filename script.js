@@ -256,7 +256,7 @@ backspace.addEventListener("click", function(){
     operandA = operandA.toString().slice(0, -1);
     display.textContent = operandA;
   }
-  if (operator != "") {
+  if (operator != "" && operandB != "" ) {
     operandB = operandB.toString().slice(0, -1);
     display.textContent = operandB;
   }
