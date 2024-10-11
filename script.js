@@ -70,6 +70,10 @@ function outputParser(value) {
   let afterPoint;
   beforePoint = value.toString().split(".")[0];
   afterPoint = value.toString().split(".")[1];
+  let beforePointLength = beforePoint.length;
+  if (beforePoint < 0) {
+    beforePointLength -= 1;
+  }
   if (value == Infinity || value == -Infinity) {
     return "WHAT HAVE Y-"
   }
@@ -79,17 +83,17 @@ function outputParser(value) {
   if (value.toString().includes("e")){
     return exponentiator(value, 0)
   }
-  if (afterPoint === undefined && beforePoint.length < 14) {
+  if (afterPoint === undefined && beforePointLength < 14) {
     return value; 
   }
-  if (beforePoint.length >= 14) {
+  if (beforePointLength >= 14) {
     return exponentiator(value, 0);
   }
-  if (beforePoint.length + afterPoint.length < 13){
+  if (beforePointLength + afterPoint.length < 13){
     return value;
   }
-  if (beforePoint.length + afterPoint.length >= 13) {
-    return parseFloat(value.toFixed(12-beforePoint.length));
+  if (beforePointLength + afterPoint.length >= 13) {
+    return parseFloat(value.toFixed(12-beforePointLength));
   }
 }
 
