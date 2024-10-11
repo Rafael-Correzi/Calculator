@@ -56,6 +56,9 @@ function operate(operandA, operandB, operator){
 
 function lengthParser(value, appendedVal){
   let lengthMax = 13;
+  if (value.toString().includes("e")){
+    return value;
+  }
   if (appendedVal === ".") {
     lengthMax = 12;
   }
@@ -249,8 +252,6 @@ backspace.addEventListener("click", function(){
   }
 })
 
-//todo 
-//make this and the number button functions the same one.
 window.addEventListener("keydown", (e) => {
   findInputSource("keyboard", e.key);
 });
