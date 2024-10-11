@@ -68,17 +68,19 @@ function lengthParser(value, appendedVal){
 function outputParser(value) {
   let beforePoint;
   let afterPoint;
-  //
   beforePoint = value.toString().split(".")[0];
   afterPoint = value.toString().split(".")[1];
+  if (value.toString().includes("e") && value.toString().includes(".")){
+    return exponentiator(value, 1);
+  }
   if (value.toString().includes("e")){
-    return exponentiator(value);
+    return exponentiator(value, 0)
   }
   if (afterPoint === undefined && beforePoint.length < 14) {
     return value; 
   }
   if (beforePoint.length >= 14) {
-    return exponentiator(value);
+    return exponentiator(value, 0);
   }
   if (beforePoint.length + afterPoint.length < 13){
     return value;
@@ -88,6 +90,24 @@ function outputParser(value) {
   }
 }
 
+//todo dividir por 0
+
+function exponentiator(value, bool){
+  if (bool === 1){
+    //
+    let beforeExpo = Number(value.toString().split("e")[0]);
+    let afterExpo = Number(value.toString().split("e")[1]);
+    beforeExpo = parseFloat(beforeExpo.toFixed(7));
+    if (beforeExpo == 10 || beforeExpo == -10) {
+      beforeExpo = 1;
+      afterExpo += 1;
+    }
+    return `${beforeExpo}e${afterExpo}`
+  }
+  if (bool === 0) {
+    return exponentiator(value.toExponential(7), 1);
+  }
+}
 
 const arrNumbers = [];
 arrNumbers[0] = document.querySelector("#zero");
