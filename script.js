@@ -143,7 +143,7 @@ display.addEventListener("mousewheel", (e) => e.blur());
 
 for (const number of arrNumbers){
   number.addEventListener("click", () =>
-    findInputSource(arrNumbers.indexOf(number).toString()))
+    findInputSource("screen", arrNumbers.indexOf(number).toString()))
 }
 
 addition.addEventListener("click", function(){
@@ -251,15 +251,17 @@ backspace.addEventListener("click", function(){
 
 //todo 
 //make this and the number button functions the same one.
-display.addEventListener("keydown", findInputSource.bind(this, "keyboard"));
+window.addEventListener("keydown", (e) => {
+  findInputSource("keyboard", e.key);
+});
 
-function findInputSource(source){
+function findInputSource(source, char){
   let appendedVal;
   if (source === "keyboard") {
-    appendedVal = getLastKey();
+    appendedVal = getLastKey(char);
   }
   else {
-    appendedVal = source;  
+    appendedVal = char;  
   }
   displayNumber(appendedVal);
 }
@@ -282,15 +284,14 @@ function displayNumber(appendedVal){
   }
 };
 
-function getLastKey(){
+function getLastKey(char){
   let valueLength = display.textContent.length;
-  let key = display.textContent.slice(-1)
-  let charCode = key.charCodeAt(0)
-  if (charCode >= 48 && charCode <=57 || charCode >=96 && charCode <=105) {
-    return key;
+  let charCode = char.charCodeAt(0)
+  if (charCode >= 48 && charCode <=57) {
+    return char;
   }
-  else if (charCode === 45 && valueLength === 1) {
-    return key;
+  else if (charCode === 45 && valueLength === 0) {
+    return char;
   }
   else {
     return null;
