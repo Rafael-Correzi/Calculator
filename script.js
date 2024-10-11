@@ -1,32 +1,7 @@
-function add(a, b) {
-  let sum = outputParser(a + b);
-  display.textContent = sum;
+function output(result) {
+  display.textContent = result;
   if (operator != "") {
-    operandA = sum;
-  }
-}
-
-function subtract(a, b) {
-  let difference = outputParser(a - b);
-  display.textContent = difference;
-  if (operator != "") {
-    operandA = difference;
-  }
-}
-
-function multiply(a, b) {
-  let product = outputParser(a * b);
-  display.textContent = product;
-  if (operator != "") {
-    operandA = product;
-  }
-}
-
-function divide(a, b){
-  let quotient = outputParser(a / b);
-  display.textContent = quotient;
-  if (operator != "") {
-    operandA = quotient;
+    operandA = result;
   }
 }
 
@@ -37,20 +12,22 @@ let operandB = "";
 let operator = "";
 
 function operate(operandA, operandB, operator){
-  if (operator === "+") {
-    add(operandA, operandB);
+  let result;
+  switch(operator){
+  case "+":
+    result = (operandA + operandB);
+    break;
+  case "-":
+    result = (operandA - operandB);
+    break;
+  case "*":
+    result = (operandA * operandB);
+    break;
+  case "/":
+    result = (operandA / operandB);
   }
-  else if (operator === "-") {
-    subtract(operandA, operandB);
-  }
-
-  else if (operator === "*") {
-    multiply(operandA, operandB);
-  }
-  
-  else if (operator === "/") {
-   divide(operandA, operandB);
-  }
+  result = outputParser(result);
+  output(result);
 }
 
 
