@@ -1,6 +1,6 @@
 function add(a, b) {
   let sum = outputParser(a + b);
-  display.value = sum;
+  display.textContent = sum;
   if (operator != "") {
     operandA = sum;
   }
@@ -8,7 +8,7 @@ function add(a, b) {
 
 function subtract(a, b) {
   let difference = outputParser(a - b);
-  display.value = difference;
+  display.textContent = difference;
   if (operator != "") {
     operandA = difference;
   }
@@ -16,7 +16,7 @@ function subtract(a, b) {
 
 function multiply(a, b) {
   let product = outputParser(a * b);
-  display.value = product;
+  display.textContent = product;
   if (operator != "") {
     operandA = product;
   }
@@ -24,7 +24,7 @@ function multiply(a, b) {
 
 function divide(a, b){
   let quotient = outputParser(a / b);
-  display.value = quotient;
+  display.textContent = quotient;
   if (operator != "") {
     operandA = quotient;
   }
@@ -139,37 +139,20 @@ const flipSign  = document.querySelector("#flip-sign");
 const clear = document.querySelector("#clear");
 
 const display = document.querySelector("#result");
+display.addEventListener("mousewheel", (e) => e.blur());
 
-
-
-for (const number of arrNumbers) {
-  number.addEventListener("click", function(){
-    let displayedNumber = arrNumbers.indexOf(number).toString();
-    if (display.value != "" && operandA === "") {
-      display.value = "";
-    }
-    if (operator == "") {
-      operandA = lengthParser(operandA, displayedNumber);
-      display.value = operandA;
-      
-    }
-    else  {
-      if (operandB == "") {
-        display.value = "";
-      }
-      operandB = lengthParser(operandB, displayedNumber);
-      display.value = operandB;
-    }
-  });
+for (const number of arrNumbers){
+  number.addEventListener("click", () =>
+    findInputSource(arrNumbers.indexOf(number).toString()))
 }
 
 addition.addEventListener("click", function(){
   if (operator == "") {
     operator = "+"
-    display.value = "";
+    display.textContent = "";
   }
   else if (operator != "" && operandA != "" && operandB != "") {
-    display.value= "";
+    display.textContent= "";
     operate(+operandA, +operandB, operator);
     operator = "+";
     operandB = "";
@@ -179,10 +162,10 @@ addition.addEventListener("click", function(){
 subtraction.addEventListener("click", function(){
   if (operator == "") {
     operator = "-"
-    display.value= "";
+    display.textContent= "";
   }
   else if (operator != "" && operandA != "" && operandB != "") {
-    display.value = "";
+    display.textContent = "";
     operate(+operandA, +operandB, operator);
     operator = "-";
     operandB = "";
@@ -192,10 +175,10 @@ subtraction.addEventListener("click", function(){
 multiplication.addEventListener("click", function(){
   if (operator == "") {
     operator = "*"
-    display.value = "";
+    display.textContent = "";
   }
   else if (operator != "" && operandA != "" && operandB != "") {
-    display.value= "";
+    display.textContent= "";
     operate(+operandA, +operandB, operator);
     operator = "*";
     operandB = "";
@@ -205,10 +188,10 @@ multiplication.addEventListener("click", function(){
 division.addEventListener("click", function(){
   if (operator == "") {
     operator = "/"
-    display.value= "";
+    display.textContent= "";
   }
   else if (operator != "" && operandA != "" && operandB != "") {
-    display.value = "";
+    display.textContent = "";
     operate(+operandA, +operandB, operator);
     operator = "/";
     operandB = "";
@@ -217,7 +200,7 @@ division.addEventListener("click", function(){
 
 equal.addEventListener("click", function(){
   if (operator != "" && operandA != "" && operandB != "") {
-    display.value = "";
+    display.textContent = "";
     operate(+operandA, +operandB, operator);
     operator = "";
     operandB = "";
@@ -227,11 +210,11 @@ equal.addEventListener("click", function(){
 flipSign.addEventListener("click", function() {
   if (operandA != "" && operandB == "") {
     operandA *= -1;
-    display.value = outputParser(operandA);
+    display.textContent = outputParser(operandA);
   }
   else if (operandB != "") {
     operandB *= -1;
-    display.value = outputParser(operandB);
+    display.textContent = outputParser(operandB);
   }
 
 })
@@ -239,11 +222,11 @@ flipSign.addEventListener("click", function() {
 point.addEventListener("click", function(){
   if (operandA != "" && operandB == "" && !operandA.toString().includes(".")) {
     operandA = lengthParser(operandA, ".");
-    display.value = operandA;
+    display.textContent = operandA;
   }
   else if (operandB != "" && !operandB.toString().includes(".")) {
     operandB = lengthParser(operandB, ".");
-    display.value = operandB;
+    display.textContent = operandB;
   }
 
 })
@@ -252,16 +235,64 @@ clear.addEventListener("click", function(){
   operandA = "";
   operandB = "";
   operator = "";
-  display.value = "";
+  display.textContent = "";
 })
 
 backspace.addEventListener("click", function(){
   if (operator == "") {
     operandA = operandA.toString().slice(0, -1);
-    display.value = operandA;
+    display.textContent = operandA;
   }
   if (operator != "" && operandB != "" ) {
     operandB = operandB.toString().slice(0, -1);
-    display.value = operandB;
+    display.textContent = operandB;
   }
 })
+
+//todo 
+//make this and the number button functions the same one.
+display.addEventListener("keydown", findInputSource.bind(this, "keyboard"));
+
+function findInputSource(source){
+  let appendedVal;
+  if (source === "keyboard") {
+    appendedVal = getLastKey();
+  }
+  else {
+    appendedVal = source;  
+  }
+  displayNumber(appendedVal);
+}
+
+function displayNumber(appendedVal){
+  if (appendedVal === null){
+    return;
+  }
+  if (operator == "") {
+    operandA = lengthParser(display.textContent, appendedVal);
+    display.textContent = operandA;
+    console.log(operandA);
+  }
+  else  {
+    if (operandB == "") {
+      display.textContent = "";
+    }
+    operandB = lengthParser(display.textContent, appendedVal);
+    display.textContent = operandB;
+  }
+};
+
+function getLastKey(){
+  let valueLength = display.textContent.length;
+  let key = display.textContent.slice(-1)
+  let charCode = key.charCodeAt(0)
+  if (charCode >= 48 && charCode <=57 || charCode >=96 && charCode <=105) {
+    return key;
+  }
+  else if (charCode === 45 && valueLength === 1) {
+    return key;
+  }
+  else {
+    return null;
+  }
+}
