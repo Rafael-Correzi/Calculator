@@ -149,15 +149,15 @@ for (const number of arrNumbers){
     findInputSource("screen", arrNumbers.indexOf(number).toString()))
 }
 
-addition.addEventListener("click", () => setOperation("+"));
+addition.addEventListener("click", () => setOperation("+", 0), );
 
-subtraction.addEventListener("click", () => setOperation("-"));
+subtraction.addEventListener("click", () => setOperation("-", 0));
 
-multiplication.addEventListener("click", () => setOperation("*"));
+multiplication.addEventListener("click", () => setOperation("*", 0));
 
-division.addEventListener("click", () => setOperation("/"));
+division.addEventListener("click", () => setOperation("/", 0));
 
-equal.addEventListener("click", () => setOperation(""));
+equal.addEventListener("click", () => setOperation("", 1));
 
 flipSign.addEventListener("click", function() {
   if (operandA != "" && operandB == "") {
@@ -198,6 +198,9 @@ function findInputSource(source, char){
 }
 
 function eraseLast(){
+  if (display.textContent.includes("e")){
+    return;
+  }
   if (operator == "") {
     operandA = operandA.toString().slice(0, -1);
     display.textContent = operandA;
@@ -245,17 +248,15 @@ function getLastKey(char){
     setPoint()
     return null
   }
-  if (char === "+" || char === "-" || char === "*" || char === "/"){
+  if (char === "+" || char === "-" || char === "*" || char === "/" || char === "="){
     setOperation(char);
     return null;
   }
-  else {
-    return null;
-  }
+   return null;
 }
 
-function setOperation(newOp){
-  if (operator == "") {
+function setOperation(newOp, isEqual){
+  if (operator == "" && isEqual == 0) {
     operator = newOp;
     display.textContent = "";
   }
@@ -277,4 +278,3 @@ function setPoint(){
     display.textContent = operandB;
   }
 }
-//todo backspace
