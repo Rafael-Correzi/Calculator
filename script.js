@@ -1,6 +1,6 @@
 function add(a, b) {
   let sum = outputParser(a + b);
-  display.textContent = sum;
+  display.value = sum;
   if (operator != "") {
     operandA = sum;
   }
@@ -8,7 +8,7 @@ function add(a, b) {
 
 function subtract(a, b) {
   let difference = outputParser(a - b);
-  display.textContent = difference;
+  display.value = difference;
   if (operator != "") {
     operandA = difference;
   }
@@ -16,7 +16,7 @@ function subtract(a, b) {
 
 function multiply(a, b) {
   let product = outputParser(a * b);
-  display.textContent = product;
+  display.value = product;
   if (operator != "") {
     operandA = product;
   }
@@ -24,7 +24,7 @@ function multiply(a, b) {
 
 function divide(a, b){
   let quotient = outputParser(a / b);
-  display.textContent = quotient;
+  display.value = quotient;
   if (operator != "") {
     operandA = quotient;
   }
@@ -141,20 +141,20 @@ const display = document.querySelector("#result");
 for (const number of arrNumbers) {
   number.addEventListener("click", function(){
     let displayedNumber = arrNumbers.indexOf(number).toString();
-    if (display.textContent != "" && operandA === "") {
-      display.textContent = "";
+    if (display.value != "" && operandA === "") {
+      display.value = "";
     }
     if (operator == "") {
       operandA = lengthParser(operandA, displayedNumber);
-      display.textContent = operandA;
+      display.value = operandA;
       
     }
     else  {
       if (operandB == "") {
-        display.textContent = "";
+        display.value = "";
       }
       operandB = lengthParser(operandB, displayedNumber);
-      display.textContent = operandB;
+      display.value = operandB;
     }
   });
 }
@@ -162,10 +162,10 @@ for (const number of arrNumbers) {
 addition.addEventListener("click", function(){
   if (operator == "") {
     operator = "+"
-    display.textContent= "";
+    display.value = "";
   }
   else if (operator != "" && operandA != "" && operandB != "") {
-    display.textContent= "";
+    display.value= "";
     operate(+operandA, +operandB, operator);
     operator = "+";
     operandB = "";
@@ -175,10 +175,10 @@ addition.addEventListener("click", function(){
 subtraction.addEventListener("click", function(){
   if (operator == "") {
     operator = "-"
-    display.textContent= "";
+    display.value= "";
   }
   else if (operator != "" && operandA != "" && operandB != "") {
-    display.textContent = "";
+    display.value = "";
     operate(+operandA, +operandB, operator);
     operator = "-";
     operandB = "";
@@ -188,10 +188,10 @@ subtraction.addEventListener("click", function(){
 multiplication.addEventListener("click", function(){
   if (operator == "") {
     operator = "*"
-    display.textContent = "";
+    display.value = "";
   }
   else if (operator != "" && operandA != "" && operandB != "") {
-    display.textContent= "";
+    display.value= "";
     operate(+operandA, +operandB, operator);
     operator = "*";
     operandB = "";
@@ -201,10 +201,10 @@ multiplication.addEventListener("click", function(){
 division.addEventListener("click", function(){
   if (operator == "") {
     operator = "/"
-    display.textContent= "";
+    display.value= "";
   }
   else if (operator != "" && operandA != "" && operandB != "") {
-    display.textContent = "";
+    display.value = "";
     operate(+operandA, +operandB, operator);
     operator = "/";
     operandB = "";
@@ -213,7 +213,7 @@ division.addEventListener("click", function(){
 
 equal.addEventListener("click", function(){
   if (operator != "" && operandA != "" && operandB != "") {
-    display.textContent = "";
+    display.value = "";
     operate(+operandA, +operandB, operator);
     operator = "";
     operandB = "";
@@ -223,11 +223,11 @@ equal.addEventListener("click", function(){
 flipSign.addEventListener("click", function() {
   if (operandA != "" && operandB == "") {
     operandA *= -1;
-    display.textContent = outputParser(operandA);
+    display.value = outputParser(operandA);
   }
   else if (operandB != "") {
     operandB *= -1;
-    display.textContent = outputParser(operandB);
+    display.value = outputParser(operandB);
   }
 
 })
@@ -235,11 +235,11 @@ flipSign.addEventListener("click", function() {
 point.addEventListener("click", function(){
   if (operandA != "" && operandB == "" && !operandA.toString().includes(".")) {
     operandA = lengthParser(operandA, ".");
-    display.textContent = operandA;
+    display.value = operandA;
   }
   else if (operandB != "" && !operandB.toString().includes(".")) {
     operandB = lengthParser(operandB, ".");
-    display.textContent = operandB;
+    display.value = operandB;
   }
 
 })
@@ -248,16 +248,16 @@ clear.addEventListener("click", function(){
   operandA = "";
   operandB = "";
   operator = "";
-  display.textContent = "";
+  display.value = "";
 })
 
 backspace.addEventListener("click", function(){
   if (operator == "") {
     operandA = operandA.toString().slice(0, -1);
-    display.textContent = operandA;
+    display.value = operandA;
   }
   if (operator != "" && operandB != "" ) {
     operandB = operandB.toString().slice(0, -1);
-    display.textContent = operandB;
+    display.value = operandB;
   }
 })
