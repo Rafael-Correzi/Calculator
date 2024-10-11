@@ -182,7 +182,11 @@ clear.addEventListener("click", function(){
 
 backspace.addEventListener("click", eraseLast);
 
+
 window.addEventListener("keydown", (e) => {
+  if (e.isComposing || e.keyCode === 229) {
+    return;
+  }
   findInputSource("keyboard", e.key);
 });
 
@@ -248,8 +252,12 @@ function getLastKey(char){
     setPoint()
     return null
   }
-  if (char === "+" || char === "-" || char === "*" || char === "/" || char === "="){
-    setOperation(char);
+  if (char === "+" || char === "-" || char === "*" || char === "/") {
+    setOperation(char, 0);
+    return null;
+  }
+  if (char === "=" || char === "Enter") {
+    setOperation("", 1);
     return null;
   }
    return null;
