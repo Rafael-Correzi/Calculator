@@ -1,15 +1,179 @@
-function output(result) {
-  display.textContent = result;
-  if (operator != "") {
-    operandA = result;
+const addition = document.querySelector("#addition");
+const subtraction = document.querySelector("#subtraction");
+const multiplication = document.querySelector("#multiplication");
+const division = document.querySelector("#division");
+const equal = document.querySelector("#equal");
+const point = document.querySelector("#point");
+const backspace = document.querySelector("#backspace");
+const signFlipper  = document.querySelector("#flip-sign");
+const clear = document.querySelector("#clear");
+const display = document.querySelector("#result");
+
+const arrNumbers = [];
+arrNumbers[0] = document.querySelector("#zero");
+arrNumbers[1] = document.querySelector("#one");
+arrNumbers[2] = document.querySelector("#two");
+arrNumbers[3] = document.querySelector("#three");
+arrNumbers[4] = document.querySelector("#four");
+arrNumbers[5] = document.querySelector("#five");
+arrNumbers[6] = document.querySelector("#six");
+arrNumbers[7] = document.querySelector("#seven");
+arrNumbers[8] = document.querySelector("#eight");
+arrNumbers[9] = document.querySelector("#nine");
+
+let operandA = "";
+let operandB = "";
+let operator = "";
+
+addition.addEventListener("click", () => setOperation("+", 0), );
+subtraction.addEventListener("click", () => setOperation("-", 0));
+multiplication.addEventListener("click", () => setOperation("*", 0));
+division.addEventListener("click", () => setOperation("/", 0));
+equal.addEventListener("click", () => setOperation("", 1));
+point.addEventListener("click", setPoint);
+backspace.addEventListener("click", eraseLast);
+signFlipper.addEventListener("click", flipSign);
+clear.addEventListener("click", clearDisplay);
+window.addEventListener("keydown", (e) => detectKeys(e));
+
+for (const number of arrNumbers){
+  number.addEventListener("click", () => findInputSource("screen", arrNumbers.indexOf(number).toString()))
+}
+
+function findInputSource(source, char){
+  let appendedVal;
+  if (source === "keyboard") {
+    appendedVal = getLastKey(char);
+  }
+  else {
+    appendedVal = char;  
+  }
+  displayInput(appendedVal);
+}
+
+function detectKeys(e){
+  if (e.isComposing || e.keyCode === 229) {
+    return;
+  }
+  findInputSource("keyboard", e.key);
+}
+
+function getLastKey(char){
+  let valueLength = display.textContent.length;
+  let charCode = char.charCodeAt(0)
+  if (charCode >= 48 && charCode <=57) {
+    //0~9
+    return char;
+  }
+  if (charCode === 45 && valueLength === 0) {
+    //negative sign
+    return char;
+  }
+  if (char === "Backspace") {
+    eraseLast();
+    return null;
+  }
+  if ((char === "." || char === ",") && !display.textContent.includes(".")) {
+    setPoint()
+    return null
+  }
+  if (char === "+" || char === "-" || char === "*" || char === "/") {
+    setOperation(char, 0);
+    return null;
+  }
+  if (char === "=" || char === "Enter") {
+    setOperation("", 1);
+    return null;
+  }
+   return null;
+}
+
+function inputParser(value, appendedVal){
+  let lengthMax = 13;
+  if (value.toString().includes("e")){
+    return value;
+  }
+  if (appendedVal === ".") {
+    lengthMax = 12;
+  }
+  if (value.toString().length < lengthMax) {
+    value += appendedVal;
+  }
+  return value;
+}
+
+function setPoint(){
+  if (operandA != "" && operandB == "" && !operandA.toString().includes(".")) {
+    operandA = inputParser(operandA, ".");
+    display.textContent = operandA;
+  }
+  else if (operandB != "" && !operandB.toString().includes(".")) {
+    operandB = inputParser(operandB, ".");
+    display.textContent = operandB;
   }
 }
 
-let operandA = "";
+function flipSign() {
+  if (operandB != "") {
+    operandB *= -1;
+    display.textContent = outputParser(operandB);
+  }
+  else if (operandA != "" && operator == "") {
+    operandA *= -1;
+    display.textContent = outputParser(operandA);
+  }
+}
 
-let operandB = "";
+function displayInput(appendedVal){
+  if (appendedVal === null){
+    return;
+  }
+  if (operator == "") {
+    operandA = inputParser(display.textContent, appendedVal);
+    display.textContent = operandA;
+  }
+  else  {
+    if (operandB == "") {
+      display.textContent = "";
+    }
+    operandB = inputParser(display.textContent, appendedVal);
+    display.textContent = operandB;
+  }
+}
 
-let operator = "";
+function eraseLast(){
+  if (display.textContent.includes("e")){
+    return;
+  }
+  if (operator == "") {
+    operandA = operandA.toString().slice(0, -1);
+    display.textContent = operandA;
+  }
+  if (operator != "" && operandB != "" ) {
+    operandB = operandB.toString().slice(0, -1);
+    display.textContent = operandB;
+  }
+}
+
+function clearDisplay() {
+  operandA = "";
+  operandB = "";
+  operator = "";
+  display.textContent = "";
+}
+
+function setOperation(newOp, isEqual){
+  if (operator == "" && isEqual == 0) {
+    operator = newOp;
+    display.textContent = "";
+  }
+  if (operator != "" && operandA != "" && operandB != "") {
+    operate(+operandA, +operandB, operator);
+    operator = newOp;
+    operandB = "";
+  }
+  
+}
 
 function operate(operandA, operandB, operator){
   let result;
@@ -27,22 +191,7 @@ function operate(operandA, operandB, operator){
     result = (operandA / operandB);
   }
   result = outputParser(result);
-  output(result);
-}
-
-
-function lengthParser(value, appendedVal){
-  let lengthMax = 13;
-  if (value.toString().includes("e")){
-    return value;
-  }
-  if (appendedVal === ".") {
-    lengthMax = 12;
-  }
-  if (value.toString().length < lengthMax) {
-    value += appendedVal;
-  }
-  return value;
+  outputResult(result);
 }
 
 function outputParser(value) {
@@ -77,7 +226,6 @@ function outputParser(value) {
   }
 }
 
-//todo dividir por 0
 
 function exponentiator(value, bool){
   if (bool === 1){
@@ -96,170 +244,9 @@ function exponentiator(value, bool){
   }
 }
 
-const arrNumbers = [];
-arrNumbers[0] = document.querySelector("#zero");
-arrNumbers[1] = document.querySelector("#one");
-arrNumbers[2] = document.querySelector("#two");
-arrNumbers[3] = document.querySelector("#three");
-arrNumbers[4] = document.querySelector("#four");
-arrNumbers[5] = document.querySelector("#five");
-arrNumbers[6] = document.querySelector("#six");
-arrNumbers[7] = document.querySelector("#seven");
-arrNumbers[8] = document.querySelector("#eight");
-arrNumbers[9] = document.querySelector("#nine");
-
-const addition = document.querySelector("#addition");
-const subtraction = document.querySelector("#subtraction");
-const multiplication = document.querySelector("#multiplication");
-const division = document.querySelector("#division");
-const equal = document.querySelector("#equal");
-const point = document.querySelector("#point");
-const backspace = document.querySelector("#backspace");
-const flipSign  = document.querySelector("#flip-sign");
-const clear = document.querySelector("#clear");
-
-const display = document.querySelector("#result");
-display.addEventListener("mousewheel", (e) => e.blur());
-
-for (const number of arrNumbers){
-  number.addEventListener("click", () =>
-    findInputSource("screen", arrNumbers.indexOf(number).toString()))
-}
-
-addition.addEventListener("click", () => setOperation("+", 0), );
-
-subtraction.addEventListener("click", () => setOperation("-", 0));
-
-multiplication.addEventListener("click", () => setOperation("*", 0));
-
-division.addEventListener("click", () => setOperation("/", 0));
-
-equal.addEventListener("click", () => setOperation("", 1));
-
-flipSign.addEventListener("click", function() {
-  if (operandA != "" && operandB == "") {
-    operandA *= -1;
-    display.textContent = outputParser(operandA);
-  }
-  else if (operandB != "") {
-    operandB *= -1;
-    display.textContent = outputParser(operandB);
-  }
-
-})
-
-point.addEventListener("click", setPoint);
-
-clear.addEventListener("click", function(){
-  operandA = "";
-  operandB = "";
-  operator = "";
-  display.textContent = "";
-});
-
-backspace.addEventListener("click", eraseLast);
-
-
-window.addEventListener("keydown", (e) => {
-  if (e.isComposing || e.keyCode === 229) {
-    return;
-  }
-  findInputSource("keyboard", e.key);
-});
-
-function findInputSource(source, char){
-  let appendedVal;
-  if (source === "keyboard") {
-    appendedVal = getLastKey(char);
-  }
-  else {
-    appendedVal = char;  
-  }
-  displayNumber(appendedVal);
-}
-
-function eraseLast(){
-  if (display.textContent.includes("e")){
-    return;
-  }
-  if (operator == "") {
-    operandA = operandA.toString().slice(0, -1);
-    display.textContent = operandA;
-  }
-  if (operator != "" && operandB != "" ) {
-    operandB = operandB.toString().slice(0, -1);
-    display.textContent = operandB;
-  }
-}
-
-function displayNumber(appendedVal){
-  if (appendedVal === null){
-    return;
-  }
-  if (operator == "") {
-    operandA = lengthParser(display.textContent, appendedVal);
-    display.textContent = operandA;
-    console.log(operandA);
-  }
-  else  {
-    if (operandB == "") {
-      display.textContent = "";
-    }
-    operandB = lengthParser(display.textContent, appendedVal);
-    display.textContent = operandB;
-  }
-};
-
-function getLastKey(char){
-  let valueLength = display.textContent.length;
-  let charCode = char.charCodeAt(0)
-  if (charCode >= 48 && charCode <=57) {
-    //0~9
-    return char;
-  }
-  if (charCode === 45 && valueLength === 0) {
-    //negative sign
-    return char;
-  }
-  if (char === "Backspace") {
-    eraseLast();
-    return null;
-  }
-  if ((char === "." || char === ",") && !display.textContent.includes(".")) {
-    setPoint()
-    return null
-  }
-  if (char === "+" || char === "-" || char === "*" || char === "/") {
-    setOperation(char, 0);
-    return null;
-  }
-  if (char === "=" || char === "Enter") {
-    setOperation("", 1);
-    return null;
-  }
-   return null;
-}
-
-function setOperation(newOp, isEqual){
-  if (operator == "" && isEqual == 0) {
-    operator = newOp;
-    display.textContent = "";
-  }
-  if (operator != "" && operandA != "" && operandB != "") {
-    operate(+operandA, +operandB, operator);
-    operator = newOp;
-    operandB = "";
-  }
-  
-}
-
-function setPoint(){
-  if (operandA != "" && operandB == "" && !operandA.toString().includes(".")) {
-    operandA = lengthParser(operandA, ".");
-    display.textContent = operandA;
-  }
-  else if (operandB != "" && !operandB.toString().includes(".")) {
-    operandB = lengthParser(operandB, ".");
-    display.textContent = operandB;
+function outputResult(result) {
+  display.textContent = result;
+  if (operator != "") {
+    operandA = result;
   }
 }
