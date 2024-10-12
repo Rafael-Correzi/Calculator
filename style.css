@@ -47,9 +47,6 @@ button {
   background-color: yellow;
 }
 
-.operation:active {
-  background-color: rgb(180, 180, 0);
-}
 .number {
   background-color: rgb(215, 215, 190);
 }
@@ -75,7 +72,9 @@ button {
 #equal {
   background-color: darkgray;
 }
-
+#equal:active{
+  background-color: rgb(115, 115, 115);
+}
 #result {
   font-size: 48px;
   align-self: center;

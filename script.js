@@ -25,7 +25,7 @@ let operandA = "";
 let operandB = "";
 let operator = "";
 
-addition.addEventListener("click", () => setOperation("+", 0), );
+addition.addEventListener("click", () => setOperation("+", 0));
 subtraction.addEventListener("click", () => setOperation("-", 0));
 multiplication.addEventListener("click", () => setOperation("*", 0));
 division.addEventListener("click", () => setOperation("/", 0));
@@ -103,22 +103,22 @@ function inputParser(value, appendedVal){
 }
 
 function setPoint(){
-  if (operandA != "" && operandB == "" && !operandA.toString().includes(".")) {
+  if (operandA !== "" && operandB === "" && !operandA.toString().includes(".")) {
     operandA = inputParser(operandA, ".");
     display.textContent = operandA;
   }
-  else if (operandB != "" && !operandB.toString().includes(".")) {
+  else if (operandB !== "" && !operandB.toString().includes(".")) {
     operandB = inputParser(operandB, ".");
     display.textContent = operandB;
   }
 }
 
 function flipSign() {
-  if (operandB != "") {
+  if (operandB !== "") {
     operandB *= -1;
     display.textContent = outputParser(operandB);
   }
-  else if (operandA != "" && operator == "") {
+  else if (operandA !== "" && operator === "") {
     operandA *= -1;
     display.textContent = outputParser(operandA);
   }
@@ -128,12 +128,12 @@ function displayInput(appendedVal){
   if (appendedVal === null){
     return;
   }
-  if (operator == "") {
+  if (operator === "") {
     operandA = inputParser(display.textContent, appendedVal);
     display.textContent = operandA;
   }
   else  {
-    if (operandB == "") {
+    if (operandB === "") {
       display.textContent = "";
     }
     operandB = inputParser(display.textContent, appendedVal);
@@ -145,11 +145,11 @@ function eraseLast(){
   if (display.textContent.includes("e")){
     return;
   }
-  if (operator == "") {
+  if (operator === "") {
     operandA = operandA.toString().slice(0, -1);
     display.textContent = operandA;
   }
-  if (operator != "" && operandB != "" ) {
+  if (operator !== "" && operandB !== "" ) {
     operandB = operandB.toString().slice(0, -1);
     display.textContent = operandB;
   }
@@ -163,14 +163,16 @@ function clearDisplay() {
 }
 
 function setOperation(newOp, isEqual){
-  if (operator == "" && isEqual == 0) {
+  if (operandA !== "" && operator === "" && isEqual === 0) {
     operator = newOp;
     display.textContent = "";
+    styleButton();
   }
-  if (operator != "" && operandA != "" && operandB != "") {
+  if (operator !== "" && operandA !== "" && operandB !== "") {
     operate(+operandA, +operandB, operator);
     operator = newOp;
     operandB = "";
+    styleButton();
   }
   
 }
@@ -192,6 +194,11 @@ function operate(operandA, operandB, operator){
   }
   result = outputParser(result);
   outputResult(result);
+  addition.style.backgroundColor = "rgb(255, 255, 0)";
+  subtraction.style.backgroundColor = "rgb(255, 255, 0)";
+  multiplication.style.backgroundColor = "rgb(255, 255, 0)";
+  division.style.backgroundColor = "rgb(255, 255, 0)";
+
 }
 
 function outputParser(value) {
@@ -203,7 +210,7 @@ function outputParser(value) {
   if (beforePoint < 0) {
     beforePointLength -= 1;
   }
-  if (value == Infinity || value == -Infinity) {
+  if (value === Infinity || value === -Infinity) {
     return "WHAT HAVE Y-"
   }
   if (value.toString().includes("e") && value.toString().includes(".")){
@@ -233,7 +240,7 @@ function exponentiator(value, bool){
     let beforeExpo = Number(value.toString().split("e")[0]);
     let afterExpo = Number(value.toString().split("e")[1]);
     beforeExpo = parseFloat(beforeExpo.toFixed(7));
-    if (beforeExpo == 10 || beforeExpo == -10) {
+    if (beforeExpo === 10 || beforeExpo === -10) {
       beforeExpo = 1;
       afterExpo += 1;
     }
@@ -246,7 +253,23 @@ function exponentiator(value, bool){
 
 function outputResult(result) {
   display.textContent = result;
-  if (operator != "") {
+  if (operator !== "") {
     operandA = result;
   }
 }
+
+function styleButton(){ 
+    switch(operator) {
+      case "+":
+        addition.style.backgroundColor = "rgb(180, 180, 0)";
+        break;
+      case "-":
+        subtraction.style.backgroundColor = "rgb(180, 180, 0)";
+        break;
+      case "*":
+        multiplication.style.backgroundColor = "rgb(180, 180, 0)";
+        break;
+      case "/":
+        division.style.backgroundColor = "rgb(180, 180, 0)";
+    }
+  }
