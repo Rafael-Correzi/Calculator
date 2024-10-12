@@ -31,18 +31,31 @@ button {
   border: solid;
   border-radius: 5%;
   transition: 0ms;
+  outline-color: transparent;
+  outline: none;
 }
 
 .color-1 {
   background-color: orange;
 }
 
+.color-1:active {
+  background-color: darkorange;
+}
+
 .operation {
   background-color: yellow;
 }
 
+.operation:active {
+  background-color: rgb(180, 180, 0);
+}
 .number {
-  background-color: beige;
+  background-color: rgb(215, 215, 190);
+}
+
+.number:active {
+  background-color:  rgb(170, 170, 150);
 }
 
 #display {
