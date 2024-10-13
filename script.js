@@ -5,7 +5,7 @@ const division = document.querySelector("#division");
 const equal = document.querySelector("#equal");
 const point = document.querySelector("#point");
 const backspace = document.querySelector("#backspace");
-const signFlipper  = document.querySelector("#flip-sign");
+const signFlipper = document.querySelector("#flip-sign");
 const clear = document.querySelector("#clear");
 const display = document.querySelector("#result");
 
@@ -36,32 +36,33 @@ signFlipper.addEventListener("click", flipSign);
 clear.addEventListener("click", clearDisplay);
 window.addEventListener("keydown", (e) => detectKeys(e));
 
-for (const number of arrNumbers){
-  number.addEventListener("click", () => findInputSource("screen", arrNumbers.indexOf(number).toString()))
+for (const number of arrNumbers) {
+  number.addEventListener("click", () =>
+    findInputSource("screen", arrNumbers.indexOf(number).toString())
+  );
 }
 
-function findInputSource(source, char){
+function findInputSource(source, char) {
   let appendedVal;
   if (source === "keyboard") {
     appendedVal = getLastKey(char);
-  }
-  else {
-    appendedVal = char;  
+  } else {
+    appendedVal = char;
   }
   displayInput(appendedVal);
 }
 
-function detectKeys(e){
+function detectKeys(e) {
   if (e.isComposing || e.keyCode === 229) {
     return;
   }
   findInputSource("keyboard", e.key);
 }
 
-function getLastKey(char){
+function getLastKey(char) {
   let valueLength = display.textContent.length;
-  let charCode = char.charCodeAt(0)
-  if (charCode >= 48 && charCode <=57) {
+  let charCode = char.charCodeAt(0);
+  if (charCode >= 48 && charCode <= 57) {
     //0~9
     return char;
   }
@@ -74,8 +75,8 @@ function getLastKey(char){
     return null;
   }
   if ((char === "." || char === ",") && !display.textContent.includes(".")) {
-    setPoint()
-    return null
+    setPoint();
+    return null;
   }
   if (char === "+" || char === "-" || char === "*" || char === "/") {
     setOperation(char, 0);
@@ -85,12 +86,12 @@ function getLastKey(char){
     setOperation("", 1);
     return null;
   }
-   return null;
+  return null;
 }
 
-function inputParser(value, appendedVal){
+function inputParser(value, appendedVal) {
   let lengthMax = 13;
-  if (value.toString().includes("e")){
+  if (value.toString().includes("e")) {
     return value;
   }
   if (appendedVal === ".") {
@@ -102,12 +103,15 @@ function inputParser(value, appendedVal){
   return value;
 }
 
-function setPoint(){
-  if (operandA !== "" && operandB === "" && !operandA.toString().includes(".")) {
+function setPoint() {
+  if (
+    operandA !== "" &&
+    operandB === "" &&
+    !operandA.toString().includes(".")
+  ) {
     operandA = inputParser(operandA, ".");
     display.textContent = operandA;
-  }
-  else if (operandB !== "" && !operandB.toString().includes(".")) {
+  } else if (operandB !== "" && !operandB.toString().includes(".")) {
     operandB = inputParser(operandB, ".");
     display.textContent = operandB;
   }
@@ -117,22 +121,20 @@ function flipSign() {
   if (operandB !== "") {
     operandB *= -1;
     display.textContent = outputParser(operandB);
-  }
-  else if (operandA !== "" && operator === "") {
+  } else if (operandA !== "" && operator === "") {
     operandA *= -1;
     display.textContent = outputParser(operandA);
   }
 }
 
-function displayInput(appendedVal){
-  if (appendedVal === null){
+function displayInput(appendedVal) {
+  if (appendedVal === null) {
     return;
   }
   if (operator === "") {
     operandA = inputParser(display.textContent, appendedVal);
     display.textContent = operandA;
-  }
-  else  {
+  } else {
     if (operandB === "") {
       display.textContent = "";
     }
@@ -141,15 +143,15 @@ function displayInput(appendedVal){
   }
 }
 
-function eraseLast(){
-  if (display.textContent.includes("e")){
+function eraseLast() {
+  if (display.textContent.includes("e")) {
     return;
   }
   if (operator === "") {
     operandA = operandA.toString().slice(0, -1);
     display.textContent = operandA;
   }
-  if (operator !== "" && operandB !== "" ) {
+  if (operator !== "" && operandB !== "") {
     operandB = operandB.toString().slice(0, -1);
     display.textContent = operandB;
   }
@@ -163,7 +165,7 @@ function clearDisplay() {
   resetOpColor();
 }
 
-function setOperation(newOp, isEqual){
+function setOperation(newOp, isEqual) {
   if (operandA !== "" && operator === "" && isEqual === 0) {
     operator = newOp;
     display.textContent = "";
@@ -175,28 +177,26 @@ function setOperation(newOp, isEqual){
     operandB = "";
     styleButton();
   }
-  
 }
 
-function operate(operandA, operandB, operator){
+function operate(operandA, operandB, operator) {
   let result;
-  switch(operator){
-  case "+":
-    result = (operandA + operandB);
-    break;
-  case "-":
-    result = (operandA - operandB);
-    break;
-  case "*":
-    result = (operandA * operandB);
-    break;
-  case "/":
-    result = (operandA / operandB);
+  switch (operator) {
+    case "+":
+      result = operandA + operandB;
+      break;
+    case "-":
+      result = operandA - operandB;
+      break;
+    case "*":
+      result = operandA * operandB;
+      break;
+    case "/":
+      result = operandA / operandB;
   }
   result = outputParser(result);
   outputResult(result);
   resetOpColor();
-
 }
 
 function outputParser(value) {
@@ -209,31 +209,30 @@ function outputParser(value) {
     beforePointLength -= 1;
   }
   if (value === Infinity || value === -Infinity) {
-    return "WHAT HAVE Y-"
+    return "WHAT HAVE Y-";
   }
-  if (value.toString().includes("e") && value.toString().includes(".")){
+  if (value.toString().includes("e") && value.toString().includes(".")) {
     return exponentiator(value, 1);
   }
-  if (value.toString().includes("e")){
-    return exponentiator(value, 0)
+  if (value.toString().includes("e")) {
+    return exponentiator(value, 0);
   }
   if (afterPoint === undefined && beforePointLength < 14) {
-    return value; 
+    return value;
   }
   if (beforePointLength >= 14) {
     return exponentiator(value, 0);
   }
-  if (beforePointLength + afterPoint.length < 13){
+  if (beforePointLength + afterPoint.length < 13) {
     return value;
   }
   if (beforePointLength + afterPoint.length >= 13) {
-    return parseFloat(value.toFixed(12-beforePointLength));
+    return parseFloat(value.toFixed(12 - beforePointLength));
   }
 }
 
-
-function exponentiator(value, bool){
-  if (bool === 1){
+function exponentiator(value, bool) {
+  if (bool === 1) {
     //
     let beforeExpo = Number(value.toString().split("e")[0]);
     let afterExpo = Number(value.toString().split("e")[1]);
@@ -242,7 +241,7 @@ function exponentiator(value, bool){
       beforeExpo = 1;
       afterExpo += 1;
     }
-    return `${beforeExpo}e${afterExpo}`
+    return `${beforeExpo}e${afterExpo}`;
   }
   if (bool === 0) {
     return exponentiator(value.toExponential(7), 1);
@@ -256,25 +255,25 @@ function outputResult(result) {
   }
 }
 
-function styleButton(){ 
-    switch(operator) {
-      case "+":
-        addition.style.backgroundColor = "rgb(180, 180, 0)";
-        break;
-      case "-":
-        subtraction.style.backgroundColor = "rgb(180, 180, 0)";
-        break;
-      case "*":
-        multiplication.style.backgroundColor = "rgb(180, 180, 0)";
-        break;
-      case "/":
-        division.style.backgroundColor = "rgb(180, 180, 0)";
-    }
+function styleButton() {
+  switch (operator) {
+    case "+":
+      addition.style.backgroundColor = "rgb(180, 180, 0)";
+      break;
+    case "-":
+      subtraction.style.backgroundColor = "rgb(180, 180, 0)";
+      break;
+    case "*":
+      multiplication.style.backgroundColor = "rgb(180, 180, 0)";
+      break;
+    case "/":
+      division.style.backgroundColor = "rgb(180, 180, 0)";
   }
+}
 
-  function resetOpColor() {
-    addition.style.backgroundColor = "rgb(255, 255, 0)";
-    subtraction.style.backgroundColor = "rgb(255, 255, 0)";
-    multiplication.style.backgroundColor = "rgb(255, 255, 0)";
-    division.style.backgroundColor = "rgb(255, 255, 0)";
-  }
+function resetOpColor() {
+  addition.style.backgroundColor = "rgb(255, 255, 0)";
+  subtraction.style.backgroundColor = "rgb(255, 255, 0)";
+  multiplication.style.backgroundColor = "rgb(255, 255, 0)";
+  division.style.backgroundColor = "rgb(255, 255, 0)";
+}
