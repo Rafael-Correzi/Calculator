@@ -1,3 +1,4 @@
+const operations = document.querySelectorAll(".operation");
 const addition = document.querySelector("#addition");
 const subtraction = document.querySelector("#subtraction");
 const multiplication = document.querySelector("#multiplication");
@@ -8,6 +9,7 @@ const backspace = document.querySelector("#backspace");
 const signFlipper = document.querySelector("#flip-sign");
 const clear = document.querySelector("#clear");
 const display = document.querySelector("#result");
+
 
 const arrNumbers = [];
 arrNumbers[0] = document.querySelector("#zero");
@@ -271,9 +273,8 @@ function styleButton() {
   }
 }
 
-function resetOpColor() {
-  addition.style.backgroundColor = "rgb(255, 255, 0)";
-  subtraction.style.backgroundColor = "rgb(255, 255, 0)";
-  multiplication.style.backgroundColor = "rgb(255, 255, 0)";
-  division.style.backgroundColor = "rgb(255, 255, 0)";
+function resetOpColor(){
+  for (const op of operations){
+    op.style.backgroundColor = "";
+  }
 }
