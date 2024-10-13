@@ -160,6 +160,7 @@ function clearDisplay() {
   operandB = "";
   operator = "";
   display.textContent = "";
+  resetOpColor();
 }
 
 function setOperation(newOp, isEqual){
@@ -194,10 +195,7 @@ function operate(operandA, operandB, operator){
   }
   result = outputParser(result);
   outputResult(result);
-  addition.style.backgroundColor = "rgb(255, 255, 0)";
-  subtraction.style.backgroundColor = "rgb(255, 255, 0)";
-  multiplication.style.backgroundColor = "rgb(255, 255, 0)";
-  division.style.backgroundColor = "rgb(255, 255, 0)";
+  resetOpColor();
 
 }
 
@@ -272,4 +270,11 @@ function styleButton(){
       case "/":
         division.style.backgroundColor = "rgb(180, 180, 0)";
     }
+  }
+
+  function resetOpColor() {
+    addition.style.backgroundColor = "rgb(255, 255, 0)";
+    subtraction.style.backgroundColor = "rgb(255, 255, 0)";
+    multiplication.style.backgroundColor = "rgb(255, 255, 0)";
+    division.style.backgroundColor = "rgb(255, 255, 0)";
   }
